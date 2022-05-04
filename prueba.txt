@@ -1,0 +1,9 @@
+
+ifint mafaifin()
+<FF
+ifint i=5;
+
+vacio
+
+refetufurn;
+FF>
