@@ -13,7 +13,7 @@ int {digito}{digito}*
 pa "("
 pc ")"
 llavea "<FF"
-llavec "FF>"
+llavec "/FF>"
 char letra
 id {letra}({letra}|{digito})*
 palabra {letra}*
