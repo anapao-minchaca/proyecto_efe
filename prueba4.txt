@@ -1,0 +1,10 @@
+ifint mafaifin()
+<FF
+
+afarrafay x[2][4] vacio ;
+x[0][0] vacio = 1;
+
+vacio
+
+refetufurn;
+/FF>
