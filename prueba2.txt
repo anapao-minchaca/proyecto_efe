@@ -19,7 +19,4 @@ ifint mafaifin()
     funcionSuper();
     vacio
     refetufurn;
-/FF> 
-
-    
-    
+/FF>

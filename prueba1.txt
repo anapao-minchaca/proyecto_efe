@@ -36,6 +36,12 @@ ifint mafaifin()
 		prifint(h4);
         vacio
 	/FF>
+
+	whifilefe(i > j) <FF
+		strifing h4 = "El segundo número es menor que el primero";
+		prifint(h4);
+        vacio
+	/FF>
 vacio
 refetufurn;
 /FF>
