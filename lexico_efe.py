@@ -87,7 +87,7 @@ def t_error(t):
     print ("Caracter no encontrado '%s'" % t.value[0])
     sys.exit("Caracter no encontrado {0} en linea {1}".format(t.value[0], int(numeroLinea/2 +1)))
 
-archivo = 'prueba4.txt'
+archivo = 'prueba1.txt'
 fp = codecs.open(archivo,'r','utf-8')
 cadena  = fp.read()
 fp.close()
