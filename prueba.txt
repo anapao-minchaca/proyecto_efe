@@ -1,6 +1,25 @@
+strufuct ejemplo <FF
+    chafar e;
+    ifint a;
+/FF>
+
+function ifint funcionEjemplo(ifint n, ifint m) <FF
+	ifint resultado = n * m;
+	vacio
+	refetufurn resultado;
+/FF>
+
 ifint mafaifin()
 <FF
-ifint i=5;
+ifint z=5;
+strifing h1 = "hola";
+chafar c = 'A';
+flofoafat f = -1.5;
+bofoofol elBool = trufuefe;
+bofoofol elBoolF = fafalsefe;
+
+ejemplo.e = 'A';
+ejemplo.a = 3;
 
 vacio
 

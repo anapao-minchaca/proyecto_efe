@@ -37,6 +37,8 @@ def p_declarar_estructuras(p):
         errores.append("Error de sintaxis, falta identificador en la linea {0}".format(int(lineaFalla -numeroLinea +1) ))
     elif(numError == 4):
         errores.append("Error de sintaxis, falta el tipo de dato en la linea {0}".format(int(lineaFalla -numeroLinea +1) ))
+    elif(numError == 5):
+        errores.append("Error de sintaxis, hay más de dos tipos de datos después la línea {0}".format(int(lineaFalla -numeroLinea +1) ))
     print("STRUFUCT")
 
 # Errores generales de estructuras
@@ -46,7 +48,8 @@ def p_declarar_estructuras_error(p):
                                 | STRUFUCT ID LLAVEA tipo_dato PYC tipo_dato ID PYC LLAVEC 
                                 | STRUFUCT ID LLAVEA tipo_dato ID PYC tipo_dato PYC LLAVEC
                                 | STRUFUCT ID LLAVEA tipo_dato PYC tipo_dato PYC LLAVEC  
-                                | STRUFUCT ID LLAVEA ID PYC ID PYC LLAVEC '''
+                                | STRUFUCT ID LLAVEA ID PYC ID PYC LLAVEC 
+                                | STRUFUCT ID LLAVEA tipo_dato ID PYC tipo_dato ID PYC tipo_dato ID PYC LLAVEC '''
 
     global lineaFalla
     global numError
@@ -65,6 +68,9 @@ def p_declarar_estructuras_error(p):
     elif(len(p)==9):
         lineaFalla = p.lineno(4)
         numError = 4
+    elif(len(p)>9):
+        lineaFalla = p.lineno(9)
+        numError = 5
 
 # Funciones
 def p_declarar_funciones(p):
@@ -177,7 +183,7 @@ def p_declaracion(p):
     if(numError == 1):
         errores.append("Error de sintaxis, falta el tipo de dato en la linea {0}".format(int(lineaFalla -numeroLinea +1) ))
     if(numError == 2):
-        errores.append("Error de sintaxis, se esperaba un 'afarrafay' en la linea {0}".format(int(lineaFalla -numeroLinea +1) ))
+        errores.append("Error de sintaxis, se esperaba un tipo de dato o un 'afarrafay' en la linea {0}".format(int(lineaFalla -numeroLinea +1) ))
     print("DECLARACION")
 
 # Error en declaracion 
@@ -213,7 +219,7 @@ def p_asignar_array(p):
 
 # Asignacion de estructuras
 def p_asignar_estructuras(p):
-    ''' asignar_estructuras : ID PUNTO ID ASG dato '''
+    ''' asignar_estructuras : ID PUNTO ID ASG dato PYC '''
     print("ASIGNAR STRUCT")
 
 # Funcion
@@ -329,7 +335,7 @@ def p_error(p):
         sys.exit("Error de sintaxis, no se encontro main")
 
 # Mandamos nuestro archivo a analizar
-fp = codecs.open("prueba1.txt","r","utf-8")
+fp = codecs.open("prueba.txt","r","utf-8")
 cadena = fp.read()
 fp.close()
 
