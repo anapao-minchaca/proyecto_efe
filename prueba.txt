@@ -15,6 +15,7 @@ ifint z=5;
 strifing h1 = "hola";
 chafar c = 'A';
 flofoafat f = -1.5;
+ifint res = i - j;
 bofoofol elBool = trufuefe;
 bofoofol elBoolF = fafalsefe;
 

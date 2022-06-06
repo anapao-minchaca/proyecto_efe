@@ -104,8 +104,8 @@ tipo_aux = ""
 llave_aux = ""
 valor_aux = ""
 llave_aux_arg = ""
-
 nom_funcion = ""
+ya = ""
 flag = True
 
 while True:
@@ -117,23 +117,24 @@ while True:
         if ((tok.type == "IFINT" or tok.type == "STRIFING" or tok.type == "CHAFAR" or tok.type == "FLOFOAFAT" or tok.type == "BOFOOFOL") and estructuras == 0):
             declaracion = 1
             tipo_aux = str(tok.type)
-            flag = True
+            #flag = True
         if(tok.type == "FUNCTION"):
             funciones = 1
-            flag = True
+            #flag = True
         if(tok.type == "STRUFUCT"):
             estructuras = 1
-            flag = True
+            #flag = True
         if(tok.type == "PUNTO"):
             asg_estructuras = 1
-            flag = True
+            #flag = True
 
     if declaracion == 1:
         if (tok.type == "ID"):
             llave_aux = str(tok.value)
-            if flag:
-                nom_funcion = llave_aux
-                #flag = False
+            print(llave_aux)
+            # if flag:
+            #     nom_funcion = llave_aux
+            #     flag = False
         if(tok.type == "INT" or tok.type == "PCC" or tok.type == "CHAR" or tok.type == "REAL" or tok.type == "TRUFUEFE" or tok.type=="FAFALSEFE"):
             valor_aux = str(tok.value)
             if(tipo_aux == "IFINT"):
@@ -171,15 +172,30 @@ while True:
                         declaracion = 0
                     else: sys.exit("La variable {0} ya fue declarada en la línea {1}".format(llave_aux, tabla[llave_aux]["LINEA"]))
                 else: sys.exit("Error semantico en variable {0} en la línea {1}".format(llave_aux, int(numeroLinea)))
-        # if(tok.type == "MUL" or tok.type == "SUM" or tok.type == "RES" or tok.type == "DIV"):
-        #     valor_aux = str(tok.value)
-        #     tabla[nom_funcion]["VALOR"] = llave_aux + valor_aux
-        #     # tabla[llave_aux]["VALOR"] += llave_aux
-        # if(tok.type == "PYC" and (valor_aux == "MUL" or valor_aux == "SUM" or valor_aux == "RES" or valor_aux == "DIV")):
-        #     tabla[nom_funcion]["VALOR"] += llave_aux
+        if(tok.type == "ASG"):
+            valor_aux = str(tok.value)
+            print("stop", llave_aux)
+            ya = llave_aux
+        #     if(llave_aux == "ID"):
+        #         print("ya pls", llave_aux)
+        if(tok.type == "MUL" or tok.type == "SUM" or tok.type == "RES" or tok.type == "DIV"):
+            valor_aux = str(tok.value)
+            print(valor_aux)
+            print(llave_aux)
+            print(nom_funcion)
+            nombre = llave_aux
+            if(tabla.get(llave_aux) is None):
+                tabla[ya] = {"TIPO": tipo_aux, "VALOR": llave_aux + valor_aux, "LINEA": int(numeroLinea)} #{"TIPO": tipo_aux, "VALOR": valor_aux, "LINEA": int(numeroLinea)}
+            #tabla[nom_funcion]["VALOR"] = llave_aux
+            #tabla[nom_funcion]["TIPO"] = valor_aux
+            #tabla[llave_aux]["VALOR"] += llave_aux
+        if(tok.type == "PYC"):
+            print("hola")
+            tabla[ya]["VALOR"] += llave_aux
         #     nom_funcion = ""
-        #     declaracion = 0
+            declaracion = 0
 
+# Falta comprobar tipos de dato en funciones y que el return coincida con el tipo que se asigno
                 
     if funciones == 1:
         if(tok.type == "PC"):
@@ -193,7 +209,7 @@ while True:
                 flag = False
             else: sys.exit("La función {0} ya fue declarada en la línea {1}".format(llave_aux, tabla_funciones[llave_aux]["LINEA"]))
         elif(tok.type == "ID"):
-            tabla_funciones[nom_funcion]["ARGUMENTOS"].append((tipo_aux, llave_aux_arg))
+            tabla_funciones[nom_funcion]["ARGUMENTOS"].append((tipo_aux, llave_aux))
         if (tok.type == "IFINT" or tok.type == "STRIFING" or tok.type == "CHAFAR" or tok.type == "FLOFOAFAT" or tok.type == "BOFOOFOL"):
             tipo_aux = str(tok.type)
 
@@ -231,4 +247,3 @@ while True:
 
 print(tabla)
 print(tabla_funciones)
-
