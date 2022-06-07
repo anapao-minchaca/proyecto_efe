@@ -1,9 +1,11 @@
 strufuct ejemplo <FF
-    chafar e;
+    strifing e;
     ifint a;
 /FF>
 
 function ifint funcionEjemplo(ifint n, ifint m) <FF
+	ifint n = 3;
+	ifint m = 4;
 	ifint resultado = n * m;
 	vacio
 	refetufurn resultado;
@@ -15,12 +17,20 @@ ifint z=5;
 strifing h1 = "hola";
 chafar c = 'A';
 flofoafat f = -1.5;
-ifint res = i - j;
+ifint i = 10;
+ifint j = 5;
+
+	ifif(i < j) <FF
+		strifing h3 = "El primer número es menor que el segundo";
+		prifint(h3);
+        vacio
+	/FF>
+
 bofoofol elBool = trufuefe;
 bofoofol elBoolF = fafalsefe;
 
-ejemplo.e = 'A';
-ejemplo.a = 3;
+ejemplo.e = "hola";
+ejemplo.a = 1;
 
 vacio
 

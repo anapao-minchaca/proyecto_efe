@@ -1,6 +1,9 @@
 function ifint funcionSuper() <FF
     bofoofol elBool = trufuefe;
-    ifif(elBool) <FF
+    ifint i = 2;
+    ifint j = 3;
+    
+    ifif(i < j) <FF
         strifing valor = "El bool es verdadero";
 		prifint(valor);
         vacio

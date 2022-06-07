@@ -78,6 +78,7 @@ def p_declarar_funciones(p):
                             | FUNCTION tipo_dato ID PA PC LLAVEA bloque_codigo REFETUFURN ID PYC LLAVEC
                             | FUNCTION tipo_dato ID PA PC LLAVEA bloque_codigo REFETUFURN PYC LLAVEC 
                             | FUNCTION tipo_dato ID PA tipo_dato ID COMA tipo_dato ID PC LLAVEA bloque_codigo REFETUFURN ID PYC LLAVEC '''
+    
 
 # Main
 def p_declarar_main(p):
@@ -172,8 +173,7 @@ def p_declarar_if_error_llave(p):
 
 # Declaracion
 def p_declaracion(p):
-    ''' declaracion : tipo_dato ID PYC
-        | tipo_dato ID ASG ID operacion_matematica ID PYC
+    ''' declaracion : tipo_dato ID ASG ID operacion_matematica ID PYC
         | tipo_dato ID ASG dato PYC 
         | AFARRAFAY ID dimensiones PYC
         | declaracion_error '''
@@ -274,11 +274,15 @@ def p_declaracion_while_error(p):
         numError = 3
 
 # Condicion
+# def p_condicion(p):
+#     ''' condicion : valores operadores valores
+#                 | valores 
+#                 | valores operadores_logicos condicion
+#                 | valores NOT valores'''
+
+# Condicion
 def p_condicion(p):
-    ''' condicion : valores operadores valores
-                | valores 
-                | valores operadores_logicos condicion
-                | valores NOT valores'''
+    ''' condicion : ID operadores ID'''
 
 # Operacion matematica
 def p_operacion_matematica(p):

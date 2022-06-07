@@ -4,6 +4,8 @@ strufuct ejemplo <FF
 /FF>
 
 function ifint funcionEjemplo(ifint n, ifint m) <FF
+	ifint n = 3;
+	ifint m = 4;
 	ifint resultado = n * m;
 	vacio
 	refetufurn resultado;
@@ -11,8 +13,8 @@ function ifint funcionEjemplo(ifint n, ifint m) <FF
 
 ifint mafaifin()
 <FF
-	flofoafat i;
-    ifint j;
+	ifint i = 3;
+    ifint j = 4;
 
     strifing h1 = "Ingrese el primer número";
     prifint(h1);
@@ -31,7 +33,10 @@ ifint mafaifin()
         vacio
 	/FF>
 
-	whifilefe(i > j) <FF
+	ifint a = 6;
+	ifint b = 3;
+
+	whifilefe(a > b) <FF
 		strifing h4 = "El segundo número es menor que el primero";
 		prifint(h4);
         vacio
