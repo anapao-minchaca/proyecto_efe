@@ -1,4 +1,3 @@
-from pickle import FALSE
 import ply.lex as lex
 import codecs
 import sys
@@ -15,6 +14,7 @@ reservadas = {
     "ifif" : "IFIF",
     "afarrafay":"AFARRAFAY",
     "strufuct":"STRUFUCT",
+    "struf": "STRUF",
     "mafaifin": "MAFAIFIN",
     "function": "FUNCTION",
     "efelsefe": "EFELSEFE",
@@ -40,7 +40,7 @@ t_MUL= r'\*'
 t_DIV = r'/'
 t_PUNTO = r'\.'
 t_ASG = r'='
-t_CMP = r'=='
+t_CMP = r'==' 
 t_NOT = r'!='
 t_MEN = r'<'
 t_MENIG= r'<='
@@ -88,7 +88,7 @@ def t_error(t):
     print ("Caracter no encontrado '%s'" % t.value[0])
     sys.exit("Caracter no encontrado {0} en linea {1}".format(t.value[0], int(numeroLinea/2 +1)))
 
-archivo = 'prueba.txt'
+archivo = 'prueba4.txt'
 fp = codecs.open(archivo,'r','utf-8')
 cadena  = fp.read()
 fp.close()
@@ -103,6 +103,7 @@ funciones = 0
 estructuras = 0
 asg_estructuras = 0
 arrays = 0
+asg_arrays = 0
 refetufurn = 0
 ciclos = 0
 
@@ -114,6 +115,7 @@ nom_funcion = ""
 ya = ""
 
 flag = True
+flagArray = False
 
 while True:
     tok = analizador.token()
@@ -121,14 +123,14 @@ while True:
         break 
     else : 
         print("Token: {0} Lexema: {1} en linea {2}".format(tok.type, tok.value, numeroLinea))
-        if ((tok.type == "IFINT" or tok.type == "STRIFING" or tok.type == "CHAFAR" or tok.type == "FLOFOAFAT" or tok.type == "BOFOOFOL") and estructuras == 0 and arrays == 0):
+        if ((tok.type == "IFINT" or tok.type == "STRIFING" or tok.type == "CHAFAR" or tok.type == "FLOFOAFAT" or tok.type == "BOFOOFOL") and estructuras == 0 and arrays == 0 and asg_arrays == 0):
             declaracion = 1
             tipo_aux = str(tok.type)
         if(tok.type == "FUNCTION"):
             funciones = 1
         if(tok.type == "STRUFUCT"):
             estructuras = 1
-        if(tok.type == "PUNTO"):
+        if(tok.type == "STRUF"):
             asg_estructuras = 1
         if(tok.type == "AFARRAFAY"):
             declaracion = 0
@@ -140,7 +142,6 @@ while True:
         if(tok.type == "IFIF" or tok.type == "WHIFILEFE"):
             ciclos = 1
 
-
     if declaracion == 1:
         if (tok.type == "ID"):
             llave_aux = str(tok.value)
@@ -151,36 +152,40 @@ while True:
                     if(tabla.get(llave_aux) is None):
                         tabla[llave_aux] = {"TIPO": tipo_aux, "VALOR": valor_aux, "LINEA": int(numeroLinea)}
                         declaracion = 0
-                    else: sys.exit("La variable {0} ya fue declarada en la línea {1}".format(llave_aux, tabla[llave_aux]["LINEA"]))
-                else: sys.exit("Error semántico en variable {0} en la línea {1}".format(llave_aux, int(numeroLinea)))
+                    else: sys.exit("La variable {0} ya fue declarada o no se escribió una variable en la línea {1}".format(llave_aux, tabla[llave_aux]["LINEA"]))
+                else: sys.exit("Error semántico en variable {0} en la línea {1}, el tipo es incorrecto".format(llave_aux, int(numeroLinea)))
             if(tipo_aux == "STRIFING"):
                 if(tok.type == "PCC"):
                     if(tabla.get(llave_aux) is None):
                         tabla[llave_aux] = {"TIPO": tipo_aux, "VALOR": valor_aux, "LINEA": int(numeroLinea)}
                         declaracion = 0
-                    else: sys.exit("La variable {0} ya fue declarada en la línea {1}".format(llave_aux, tabla[llave_aux]["LINEA"]))
-                else: sys.exit("Error semántico en variable {0} en la línea {1}".format(llave_aux, int(numeroLinea)))
+                    else: sys.exit("La variable {0} ya fue declarada o no se escribió una variable en la línea {1}".format(llave_aux, tabla[llave_aux]["LINEA"]))
+                else: sys.exit("Error semántico en variable {0} en la línea {1}, el tipo es incorrecto".format(llave_aux, int(numeroLinea)))
             if(tipo_aux == "CHAFAR"):
                 if(tok.type == "CHAR"):
                     if(tabla.get(llave_aux) is None):
                         tabla[llave_aux] = {"TIPO": tipo_aux, "VALOR": valor_aux, "LINEA": int(numeroLinea)}
                         declaracion = 0
-                    else: sys.exit("La variable {0} ya fue declarada en la línea {1}".format(llave_aux, tabla[llave_aux]["LINEA"]))
-                else: sys.exit("Error semántico en variable {0} en la línea {1}".format(llave_aux, int(numeroLinea)))
+                    else: sys.exit("La variable {0} ya fue declarada o no se escribió una variable en la línea {1}".format(llave_aux, tabla[llave_aux]["LINEA"]))
+                else: sys.exit("Error semántico en variable {0} en la línea {1}, el tipo es incorrecto".format(llave_aux, int(numeroLinea)))
             if(tipo_aux == "FLOFOAFAT"):
                 if(tok.type == "REAL"):
                     if(tabla.get(llave_aux) is None):
                         tabla[llave_aux] = {"TIPO": tipo_aux, "VALOR": valor_aux, "LINEA": int(numeroLinea)}
                         declaracion = 0
-                    else: sys.exit("La variable {0} ya fue declarada en la línea {1}".format(llave_aux, tabla[llave_aux]["LINEA"]))
-                else: sys.exit("Error semántico en variable {0} en la línea {1}".format(llave_aux, int(numeroLinea)))
+                    else: sys.exit("La variable {0} ya fue declarada o no se escribió una variable en la línea {1}".format(llave_aux, tabla[llave_aux]["LINEA"]))
+                else: sys.exit("Error semántico en variable {0} en la línea {1}, el tipo es incorrecto".format(llave_aux, int(numeroLinea)))
             if(tipo_aux == "BOFOOFOL"):
                 if(tok.type == "TRUFUEFE" or tok.type == "FAFALSEFE"):
                     if(tabla.get(llave_aux) is None):
                         tabla[llave_aux] = {"TIPO": tipo_aux, "VALOR": valor_aux, "LINEA": int(numeroLinea)}
                         declaracion = 0
-                    else: sys.exit("La variable {0} ya fue declarada en la línea {1}".format(llave_aux, tabla[llave_aux]["LINEA"]))
-                else: sys.exit("Error semántico en variable {0} en la línea {1}".format(llave_aux, int(numeroLinea)))
+                    else: sys.exit("La variable {0} ya fue declarada o no se escribió una variable en la línea {1}".format(llave_aux, tabla[llave_aux]["LINEA"]))
+                else: sys.exit("Error semántico en variable {0} en la línea {1}, el tipo es incorrecto".format(llave_aux, int(numeroLinea)))
+            if(tipo_aux == "CA"):
+                if valor_aux < tabla[llave_aux]["DIMENSIONES"][0] and valor_aux >= 0:
+                    asg_arrays = 1
+                else: sys.exit("fuera de la dimensión")
         if(tok.type == "ASG"):
             valor_aux = str(tok.value)
             ya = llave_aux
@@ -196,7 +201,7 @@ while True:
                 declaracion = 0
             elif not(llave_aux in tabla):
                 pass
-            else: sys.exit("Error semántico en variable {0} en la línea {1}, la variable no existe, no coincide el tipo o no hay un valor ".format(llave_aux, int(numeroLinea)))
+            else: sys.exit("Error semántico en variable {0} en la línea {1}, la variable no existe, no coincide el tipo o no hay un valor".format(llave_aux, int(numeroLinea)))
 
 # Falta comprobar tipos de dato en funciones
                 
@@ -245,32 +250,67 @@ while True:
         if (tok.type == "ID"):
             llave_aux_arg = str(tok.value)
 
-            for iter in tabla.keys():
-                if tabla[iter]["TIPO"] == "STRUFUCT":
-                    llave_aux = tabla[iter]["NOMBRE"]
+            if llave_aux_arg in tabla and flag:
+                if tabla[llave_aux_arg]["TIPO"] == "STRUFUCT":
+                    llave_aux = llave_aux_arg
+                    flag = False
+                else: sys.exit("Error en la línea {0}, la variable {1} no es una estructura".format(int(numeroLinea), llave_aux_arg))
+            elif not flag:
+                pass
+            else: sys.exit("Error, no existe la estructura o se declaró mal en la línea {0}".format(int(numeroLinea)))
 
         if(tok.type == "INT" or tok.type == "PCC" or tok.type == "CHAR" or tok.type == "REAL" or tok.type == "TRUFUEFE" or tok.type=="FAFALSEFE"):
             valor_aux = str(tok.value)
             tipo_aux = str(tok.type)
-            if(tabla[llave_aux]["VALORES"][0][0] == tok.type and len(tabla[llave_aux]["VALORES"]) == 2):
-                tabla[llave_aux]["VALORES"].append((llave_aux_arg, valor_aux))
-                asg_estructuras = 0       
-            elif(tabla[llave_aux]["VALORES"][1][0] == tok.type and len(tabla[llave_aux]["VALORES"]) == 3):
+
+            if(len(tabla[llave_aux]["VALORES"]) == 3):
+                if tabla[llave_aux]["VALORES"][2][0] == llave_aux_arg:
+                    sys.exit("La variable {0} ya existe en la línea {1}".format(llave_aux_arg, int(numeroLinea)))
+            if(len(tabla[llave_aux]["VALORES"]) == 4):
+                if tabla[llave_aux]["VALORES"][2][0] == llave_aux_arg or tabla[llave_aux]["VALORES"][3][0] == llave_aux_arg:
+                    sys.exit("La variable {0} ya existe en la línea {1}".format(llave_aux_arg, int(numeroLinea)))
+
+            if(tabla[llave_aux]["VALORES"][0][0] == tok.type and tabla[llave_aux]["VALORES"][0][1] == llave_aux_arg): # and len(tabla[llave_aux]["VALORES"]) == 2):
                 tabla[llave_aux]["VALORES"].append((llave_aux_arg, valor_aux))
                 asg_estructuras = 0
-            else: sys.exit("Error semántico en variable {0} en la línea {1}, no coinciden los tipos".format(llave_aux, int(numeroLinea)))
+                flag = True       
+            elif(tabla[llave_aux]["VALORES"][1][0] == tok.type and tabla[llave_aux]["VALORES"][1][1] == llave_aux_arg): # and len(tabla[llave_aux]["VALORES"]) == 3):
+                tabla[llave_aux]["VALORES"].append((llave_aux_arg, valor_aux))
+                asg_estructuras = 0
+                flag = True  
+            else: sys.exit("Error semántico en variable {0} en la línea {1}, no coinciden los tipos, no existe esa estructura o la variable no se encuentra en la estructura".format(llave_aux, int(numeroLinea)))
 
     if arrays == 1:
         if (tok.type == "ID"):
             llave_aux = str(tok.value)
             if(tabla.get(llave_aux) is None):
-                tabla[llave_aux] = {"TIPO": "AFARRAFAY", "NOMBRE": llave_aux, "DIMENSIONES": [], "LINEA": int(numeroLinea)}
+                tabla[llave_aux] = {"TIPO": "AFARRAFAY", "NOMBRE": llave_aux, "DIMENSIONES": [], "LINEA": int(numeroLinea), "VALORES": []}
         if(tok.type == "INT"):
             llave_aux_arg = str(tok.value)
             tabla[llave_aux]["DIMENSIONES"].append(llave_aux_arg)
+            for i in range(int(llave_aux_arg)):
+                tabla[llave_aux]["VALORES"].append(0)
         if(tok.type == "VACIO"):
             arrays = 0
+            asg_arrays = 1
     
+    if asg_arrays == 1:
+        if (tok.type == "ID"):
+            llave_aux = str(tok.value)
+        if llave_aux in tabla:
+            if(tok.type == "INT" or tok.type == "PCC" or tok.type == "CHAR" or tok.type == "REAL" or tok.type == "TRUFUEFE" or tok.type=="FAFALSEFE"):
+                if(tipo_aux == "CA"):
+                    if tok.value < int(tabla[llave_aux]["DIMENSIONES"][0]) and tok.value >= 0:
+                        tipo_aux = tok.value
+                    else: sys.exit("Error, el valor {0} está fuera de la dimensión del arreglo {1} en la línea {2}".format(tok.value, llave_aux, int(numeroLinea)))
+                else:
+                    tabla[llave_aux]["VALORES"][tipo_aux] = tok.value
+                    asg_arrays = 0
+        else: sys.exit("Error semántico en variable {0} en la línea {1}, la variable no existe".format(llave_aux, int(numeroLinea)))
+        if(tok.type == "CA"):
+            if llave_aux in tabla:
+                tipo_aux = str(tok.type)
+
     if refetufurn == 1:
         if (tok.type == "ID"):
             llave_aux = str(tok.value)
@@ -285,13 +325,17 @@ while True:
             llave_aux = str(tok.value)
             if llave_aux in tabla and flag:
                 tipo_aux = tabla[llave_aux]["TIPO"]
-                flag = False
+                if tipo_aux == "IFINT" or tipo_aux == "FLOFOAFAT":
+                    flag = False
+                else: sys.exit("Error semántico, la variable {0} no es válida para la comparación en la línea {1}".format(llave_aux, int(numeroLinea)))
             elif llave_aux in tabla and tipo_aux == tabla[llave_aux]["TIPO"]:
                     ciclos = 0
+                    flag = True
             else: sys.exit("Error semántico en variable {0} en la línea {1}, no coinciden los tipos o no existe".format(llave_aux, int(numeroLinea)))
-        # elif(tok.type == "MEN" or tok.type == "MAY" or tok.type == "MENIG" or tok.type == "MAYIG" or tok.type == "CMP" or tok.type == "DIF" or tok.type == "PA" or tok.type == "PC" or tok.type == "IFIF"):
-        #     pass
-
+        if (tok.type == "PC"):
+            ciclos = 0
+            if flag:
+                sys.exit("Error en la definición de la comparación en la línea {0}".format(int(numeroLinea)))
 
 print(tabla)
 print(tabla_funciones)

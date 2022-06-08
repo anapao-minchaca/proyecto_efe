@@ -1,0 +1,14 @@
+strufuct ejemplo <FF
+    strifing e;
+    ifint a;
+/FF>
+
+ifint mafaifin()
+<FF
+
+struf ejemplo.a = 1;
+struf ejemplo.e = "hola";
+	
+vacio
+refetufurn;
+/FF>

@@ -1,0 +1,15 @@
+ifint mafaifin()
+<FF
+ifint z=3;
+strifing h1 = "hola";
+chafar c = 'A';
+flofoafat f = -1.5;
+flofoafat f = 1.5;
+
+bofoofol elBool = trufuefe;
+bofoofol elBoolF = fafalsefe;
+
+vacio
+
+return;
+/FF>

@@ -1,0 +1,25 @@
+function funcionSuper() <FF
+    bofoofol elBool = trufuefe;
+    flofoafat a = 2.4;
+    flofoafat b = 3.5;
+    
+    ifif(a < b) <FF
+        strifing valor = "El bool es verdadero";
+		prifint(valor);
+        vacio
+    /FF>
+    efelsefe <FF
+        strifing valor1 = "El bool es falso";
+		prifint(valor1);
+        vacio
+    /FF>
+    vacio
+    refetufurn;
+/FF>
+
+ifint mafaifin()
+<FF
+    funcionSuper();
+    vacio
+    refetufurn;
+/FF>

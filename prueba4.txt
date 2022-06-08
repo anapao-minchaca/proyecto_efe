@@ -1,8 +1,15 @@
+function ifint hola(ifint n) <FF
+    ifint resultado = 3;
+    vacio
+    refetufurn resultado;
+/FF>
+
 ifint mafaifin()
 <FF
 
-afarrafay x[2][4] vacio ;
-x[0][0] vacio = 1;
+afarrafay x[7] vacio ;
+x[6] vacio = "hola";
+x[2] vacio = 2;
 
 vacio
 

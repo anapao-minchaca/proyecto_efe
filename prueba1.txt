@@ -27,14 +27,14 @@ ifint mafaifin()
 	ifint res = i - j;
 	prifint(res);
 
+	ifint a = 6;
+	ifint b = 3;
+
 	ifif(i < j) <FF
 		strifing h3 = "El primer número es menor que el segundo";
 		prifint(h3);
         vacio
 	/FF>
-
-	ifint a = 6;
-	ifint b = 3;
 
 	whifilefe(a > b) <FF
 		strifing h4 = "El segundo número es menor que el primero";

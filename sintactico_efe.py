@@ -76,9 +76,24 @@ def p_declarar_estructuras_error(p):
 def p_declarar_funciones(p):
     ''' declarar_funciones : FUNCTION tipo_dato ID PA tipo_dato ID PC LLAVEA bloque_codigo REFETUFURN ID PYC LLAVEC 
                             | FUNCTION tipo_dato ID PA PC LLAVEA bloque_codigo REFETUFURN ID PYC LLAVEC
-                            | FUNCTION tipo_dato ID PA PC LLAVEA bloque_codigo REFETUFURN PYC LLAVEC 
-                            | FUNCTION tipo_dato ID PA tipo_dato ID COMA tipo_dato ID PC LLAVEA bloque_codigo REFETUFURN ID PYC LLAVEC '''
-    
+                            | FUNCTION tipo_dato ID PA tipo_dato ID COMA tipo_dato ID PC LLAVEA bloque_codigo REFETUFURN ID PYC LLAVEC 
+                            | FUNCTION ID PA tipo_dato ID PC LLAVEA bloque_codigo REFETUFURN PYC LLAVEC 
+                            | FUNCTION ID PA PC LLAVEA bloque_codigo REFETUFURN PYC LLAVEC
+                            | FUNCTION ID PA tipo_dato ID COMA tipo_dato ID PC LLAVEA bloque_codigo REFETUFURN PYC LLAVEC
+                            | declarar_funciones_error '''
+    global lineaFalla
+    global errores
+    if(numError == 1):
+        errores.append("Error de sintaxis, falta la variable a regresar para la función de la linea {0}".format(int(lineaFalla -numeroLinea +1) ))
+
+def p_declarar_funciones_error(p):
+    ''' declarar_funciones_error : FUNCTION tipo_dato ID PA tipo_dato ID COMA tipo_dato ID PC LLAVEA bloque_codigo REFETUFURN PYC LLAVEC
+                                | FUNCTION tipo_dato ID PA tipo_dato ID PC LLAVEA bloque_codigo REFETUFURN PYC LLAVEC
+                                | FUNCTION tipo_dato ID PA PC LLAVEA bloque_codigo REFETUFURN PYC LLAVEC'''
+    global lineaFalla
+    global numError
+    lineaFalla = p.lineno(1)
+    numError = 1
 
 # Main
 def p_declarar_main(p):
@@ -93,6 +108,8 @@ def p_declarar_main(p):
         errores.append("Error de sintaxis, falta 'refetufurn;' antes de la linea {0}".format(int(lineaFalla -numeroLinea +1) ))
     elif(numError==3): 
         errores.append("Error de sintaxis, se esperaba un 'mafaifin' en la linea {0}".format(int(lineaFalla -numeroLinea +1) ))
+    elif(numError==4): 
+        errores.append("Error de sintaxis, falta 'refetufurn' en la linea {0}".format(int(lineaFalla -numeroLinea +1) ))
     print("DECLARACION_MAFAIFIN")
 
 # Errores generales de main
@@ -101,13 +118,19 @@ def p_declarar_main_error(p):
                 | IFINT MAFAIFIN PA PC LLAVEA bloque_codigo LLAVEC
                 | MAFAIFIN PA PC LLAVEA bloque_codigo LLAVEC
                 | IFINT PA PC LLAVEA bloque_codigo REFETUFURN PYC LLAVEC 
-                | IFINT ID PA PC LLAVEA bloque_codigo REFETUFURN PYC LLAVEC '''
+                | IFINT ID PA PC LLAVEA bloque_codigo REFETUFURN PYC LLAVEC 
+                | ID MAFAIFIN PA PC LLAVEA bloque_codigo REFETUFURN PYC LLAVEC
+                | ID ID PA PC LLAVEA bloque_codigo REFETUFURN PYC LLAVEC 
+                | IFINT MAFAIFIN PA PC LLAVEA bloque_codigo ID PYC LLAVEC '''
 
     global lineaFalla
     global numError
     if(p[1]=='MAFAIFIN'):
         lineaFalla = p.lineno(1)
         numError = 1
+    elif(p[7]!="REFETUFURN"):
+        lineaFalla = p.lineno(7)
+        numError = 4
     elif((p[1]=='IFINT' and len(p)==9) or (p[1]=='IFINT' and len(p)==10)):
         lineaFalla = p.lineno(2)
         numError = 3
@@ -115,6 +138,9 @@ def p_declarar_main_error(p):
         lineaFalla = p.lineno(7)
         numError = 2
     elif(len(p)==6):
+        lineaFalla = p.lineno(1)
+        numError = 1
+    elif(p[1]!= "IFINT"):
         lineaFalla = p.lineno(1)
         numError = 1
     
@@ -154,22 +180,44 @@ def p_declarar_if(p):
         errores.append("Error de sintaxis, falta una llave de cierre para la llave que abre en la linea {0}".format(int(lineaFalla -numeroLinea +1) ))
     elif(numError == 1):
         errores.append("Error de sintaxis, falta una llave de apertura para la llave que cierra en la linea {0}".format(int(lineaFalla -numeroLinea +1) ))
+    elif(numError == 3):
+        errores.append("Error de sintaxis, se esperaba un 'ifif' en la linea {0}".format(int(lineaFalla -numeroLinea +1) ))
+    elif(numError == 4):
+        errores.append("Error de sintaxis, se esperaba un 'efelsefe' en la linea {0}".format(int(lineaFalla -numeroLinea +1) ))
     print("IFIF")
 
 # Errores generales en if
 def p_declarar_if_error_llave(p):
     ''' declarar_if_error_llave : IFIF PA condicion PC LLAVEA bloque_codigo LLAVEC EFELSEFE LLAVEA bloque_codigo
-                | IFIF PA condicion PC LLAVEA bloque_codigo LLAVEC EFELSEFE bloque_codigo LLAVEC '''
+                | IFIF PA condicion PC LLAVEA bloque_codigo LLAVEC EFELSEFE bloque_codigo LLAVEC 
+                | PA condicion PC LLAVEA bloque_codigo LLAVEC EFELSEFE LLAVEA bloque_codigo LLAVEC 
+                | ID PA condicion PC LLAVEA bloque_codigo LLAVEC
+                | ID PA condicion PC LLAVEA bloque_codigo LLAVEC EFELSEFE LLAVEA bloque_codigo LLAVEC
+                | IFIF PA condicion PC LLAVEA bloque_codigo LLAVEC LLAVEA bloque_codigo LLAVEC '''
 
     global lineaFalla
     global numError
     if(len(p) == 11):
-        if(p[10]=='/FF>'):
+        if(p[1] != "IFIF"):
+            lineaFalla = p.lineno(1)
+            numError = 3
+        elif(p[8]!='EFELSEFE'):
+            lineaFalla = p.lineno(8)
+            numError = 4
+        elif(p[10]=='/FF>'):
             lineaFalla = p.lineno(10)
             numError = 1
         else:
             lineaFalla = p.lineno(9)
             numError = 2
+    if(len(p) == 12):
+        if(p[1] != "IFIF"):
+            lineaFalla = p.lineno(1)
+            numError = 3
+    if(len(p) == 8):
+        if(p[1] != "IFIF"):
+            lineaFalla = p.lineno(1)
+            numError = 3
 
 # Declaracion
 def p_declaracion(p):
@@ -181,16 +229,16 @@ def p_declaracion(p):
     global lineaFalla
     global errores
     if(numError == 1):
-        errores.append("Error de sintaxis, falta el tipo de dato en la linea {0}".format(int(lineaFalla -numeroLinea +1) ))
-    if(numError == 2):
-        errores.append("Error de sintaxis, se esperaba un tipo de dato o un 'afarrafay' en la linea {0}".format(int(lineaFalla -numeroLinea +1) ))
+        errores.append("Error de sintaxis, falta el tipo de dato en la línea {0}".format(int(lineaFalla -numeroLinea +1) ))
+    # if(numError == 2):
+    #     errores.append("Error de sintaxis, se esperaba un 'afarrafay' en la línea {0}".format(int(lineaFalla -numeroLinea +1) ))
     print("DECLARACION")
 
 # Error en declaracion 
 def p_declaracion_error(p):
     ''' declaracion_error : ID PYC 
             | ID ASG ID operacion_matematica ID PYC
-            | ID ASG valores PYC 
+            | ID ASG dato PYC 
             | ID ID PYC 
             | ID ID ASG ID operacion_matematica ID PYC
             | ID ID ASG valores PYC 
@@ -200,9 +248,9 @@ def p_declaracion_error(p):
     global numError
     lineaFalla = p.lineno(1)
     numError = 1
-    if((p[1] != 'AFARRAFAY' and len(p)==5) or (p[1] != 'AFARRAFAY' and len(p)==4)):
-        lineaFalla = p.lineno(1)
-        numError = 2
+    # if((p[1] != 'AFARRAFAY' and len(p)==5) or (p[1] != 'AFARRAFAY' and len(p)==4)):
+    #     lineaFalla = p.lineno(1)
+    #     numError = 2
 
 # Dimensiones de array
 def p_dimensiones(p):
@@ -210,7 +258,24 @@ def p_dimensiones(p):
                     | VACIO '''
 
 def p_dimension(p):
-    ''' dimension : CA INT CC '''
+    ''' dimension : CA INT CC 
+                    | dimension_error '''
+    global lineaFalla
+    global errores
+    if(numError == 1):
+        errores.append("Error de sintaxis, el tipo es erroneo o falta en la línea {0}".format(int(lineaFalla -numeroLinea +1) ))
+
+def p_dimension_error(p):
+    ''' dimension_error : CA CC 
+                    | CA ID CC
+                    | CA REAL CC
+                    | CA PCC CC
+                    | CA CHAR CC '''
+    global lineaFalla
+    global numError
+    if(p[2]!='INT'):
+        lineaFalla = p.lineno(2)
+        numError = 1
 
 # Asignar array
 def p_asignar_array(p):
@@ -219,7 +284,7 @@ def p_asignar_array(p):
 
 # Asignacion de estructuras
 def p_asignar_estructuras(p):
-    ''' asignar_estructuras : ID PUNTO ID ASG dato PYC '''
+    ''' asignar_estructuras : STRUF ID PUNTO ID ASG dato PYC '''
     print("ASIGNAR STRUCT")
 
 # Funcion
@@ -336,10 +401,10 @@ def p_error(p):
         print(p)
         sys.exit("Error de sintaxis en la linea {0}".format(int((p.lineno - (numeroLinea - 1)) ) ))
     else: 
-        sys.exit("Error de sintaxis, no se encontro main")
+        sys.exit("Error de sintaxis, no se encontró main")
 
 # Mandamos nuestro archivo a analizar
-fp = codecs.open("prueba.txt","r","utf-8")
+fp = codecs.open("prueba4.txt","r","utf-8")
 cadena = fp.read()
 fp.close()
 

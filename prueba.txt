@@ -13,7 +13,7 @@ function ifint funcionEjemplo(ifint n, ifint m) <FF
 
 ifint mafaifin()
 <FF
-ifint z=5;
+ifint z=3;
 strifing h1 = "hola";
 chafar c = 'A';
 flofoafat f = -1.5;
@@ -29,8 +29,8 @@ ifint j = 5;
 bofoofol elBool = trufuefe;
 bofoofol elBoolF = fafalsefe;
 
-ejemplo.e = "hola";
-ejemplo.a = 1;
+hola.e = "hola";
+hola.a = 1;
 
 vacio
 

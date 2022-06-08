@@ -1,0 +1,50 @@
+Token: IFINT Lexema: IFINT en linea 1
+Token: MAFAIFIN Lexema: MAFAIFIN en linea 1
+Token: PA Lexema: ( en linea 1
+Token: PC Lexema: ) en linea 1
+Token: LLAVEA Lexema: <FF en linea 2
+Token: IFINT Lexema: IFINT en linea 3
+Token: ID Lexema: z en linea 3
+Token: ASG Lexema: = en linea 3
+Token: INT Lexema: 3 en linea 3
+Token: PYC Lexema: ; en linea 3
+Token: STRIFING Lexema: STRIFING en linea 4
+Token: ID Lexema: h1 en linea 4
+Token: ASG Lexema: = en linea 4
+Token: PCC Lexema: "hola" en linea 4
+Token: PYC Lexema: ; en linea 4
+Token: CHAFAR Lexema: CHAFAR en linea 5
+Token: ID Lexema: c en linea 5
+Token: ASG Lexema: = en linea 5
+Token: CHAR Lexema: 'A' en linea 5
+Token: PYC Lexema: ; en linea 5
+Token: FLOFOAFAT Lexema: FLOFOAFAT en linea 6
+Token: ID Lexema: f en linea 6
+Token: ASG Lexema: = en linea 6
+Token: REAL Lexema: -1.5 en linea 6
+Token: PYC Lexema: ; en linea 6
+Token: BOFOOFOL Lexema: BOFOOFOL en linea 8
+Token: ID Lexema: elBool en linea 8
+Token: ASG Lexema: = en linea 8
+Token: TRUFUEFE Lexema: TRUFUEFE en linea 8
+Token: PYC Lexema: ; en linea 8
+Token: BOFOOFOL Lexema: BOFOOFOL en linea 9
+Token: ID Lexema: elBoolF en linea 9
+Token: ASG Lexema: = en linea 9
+Token: FAFALSEFE Lexema: FAFALSEFE en linea 9
+Token: PYC Lexema: ; en linea 9
+Token: VACIO Lexema: VACIO en linea 11
+Token: REFETUFURN Lexema: REFETUFURN en linea 13
+Token: PYC Lexema: ; en linea 13
+Token: LLAVEC Lexema: /FF> en linea 14
+{'z': {'TIPO': 'IFINT', 'VALOR': '3', 'LINEA': 3}, 'h1': {'TIPO': 'STRIFING', 'VALOR': '"hola"', 'LINEA': 4}, 'c': {'TIPO': 'CHAFAR', 'VALOR': "'A'", 'LINEA': 5}, 'f': {'TIPO': 'FLOFOAFAT', 'VALOR': '-1.5', 'LINEA': 6}, 'elBool': {'TIPO': 'BOFOOFOL', 'VALOR': 'TRUFUEFE', 'LINEA': 8}, 'elBoolF': {'TIPO': 'BOFOOFOL', 'VALOR': 'FAFALSEFE', 'LINEA': 9}}
+{}
+DECLARACION
+DECLARACION
+DECLARACION
+DECLARACION
+DECLARACION
+DECLARACION
+DECLARACION_MAFAIFIN
+START
+No hubo ningun error
